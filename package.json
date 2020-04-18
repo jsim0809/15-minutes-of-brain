@@ -1,0 +1,37 @@
+{
+  "name": "15-minutes-of-brain",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "node server/server.js",
+    "start-dev": "nodemon server/server.js",
+    "build": "webpack",
+    "build-dev": "webpack --watch",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jsim0809/15-minutes-of-brain.git"
+  },
+  "author": "Jeremy Sim",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jsim0809/15-minutes-of-brain/issues"
+  },
+  "homepage": "https://github.com/jsim0809/15-minutes-of-brain#readme",
+  "dependencies": {
+    "axios": "^0.19.2",
+    "express": "^4.17.1",
+    "react": "^16.13.1",
+    "react-dom": "^16.13.1"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.9.0",
+    "@babel/preset-env": "^7.9.5",
+    "@babel/preset-react": "^7.9.4",
+    "babel-loader": "^8.1.0",
+    "webpack": "^4.42.1",
+    "webpack-cli": "^3.3.11"
+  }
+}
