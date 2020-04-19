@@ -6,6 +6,7 @@
 a,
 a:focus,
 a:hover {
+  cursor: pointer;
   color: #fff;
 }
 
@@ -51,6 +52,7 @@ body {
 }
 
 .masthead-brand {
+  cursor: pointer;
   margin-bottom: 0;
 }
 

@@ -1,12 +1,12 @@
 import React from 'react';
 
-const Header = ({ tab }) => (
+const Header = ({ tab, handleMenuBarClick }) => (
   <header className="masthead mb-auto">
       <div className="inner">
-        <h3 className="masthead-brand"></h3>
+        <h3 name="home" className="masthead-brand" onClick={handleMenuBarClick}>15 Minutes of Brain</h3>
         <nav className="nav nav-masthead justify-content-center">
-          <a className={`nav-link ${tab === 'home' ? 'active' : ''}`} href="#">Home</a>
-          <a className={`nav-link ${tab === 'faq' ? 'active' : ''}`} href="#">FAQ</a>
+          <a name="home" className={`nav-link ${tab === 'home' ? 'active' : ''}`} onClick={handleMenuBarClick}>Home</a>
+          <a name="faq" className={`nav-link ${tab === 'faq' ? 'active' : ''}`} onClick={handleMenuBarClick}>FAQ</a>
         </nav>
       </div>
     </header>
