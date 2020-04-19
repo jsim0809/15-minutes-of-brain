@@ -1,7 +1,7 @@
 import React from 'react';
 import Header from './Header.jsx';
 import Home from './Home.jsx';
-import FAQ from './FAQ.jsx';
+import About from './About.jsx';
 import Footer from './Footer.jsx';
 
 const youtube = require('../youtube.key.js');
@@ -13,7 +13,6 @@ class App extends React.Component {
 
     this.state = {
       tab: 'Home',
-      videoList: [],
       video: null,
       showThumbs: false,
     }
@@ -80,10 +79,10 @@ class App extends React.Component {
 
     // Set the body varilable to whichever tab is selected to render.
     let body = null;
-    if (tab === 'Home' || tab === "Brain15") {
+    if (tab === 'Home' || tab === "15 Minutes of Brain") {
       body = <Home video={video} showThumbs={showThumbs} handleBrainMeClick={this.handleBrainMeClick} />;
-    } else if (tab === 'FAQ') {
-      body = <FAQ />;
+    } else if (tab === 'About') {
+      body = <About />;
     }
 
     return (
