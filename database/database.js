@@ -14,8 +14,8 @@ pool.connect()
 
 // Upvote, downvote, or report
 module.exports.upvote = (videoId, callback) => {
-  pool.query(`INSERT INTO videos (id, upvotes) VALUES (${videoId}, 1) 
-    ON CONFLICT (id) DO UPDATE SET upvotes = customers.upvotes + 1;`)
+  pool.query(`INSERT INTO videos (id, upvotes) VALUES ('${videoId}', 1) 
+    ON CONFLICT (id) DO UPDATE SET upvotes = videos.upvotes + 1;`)
     .then(() => {
       callback(null);
     })
@@ -25,8 +25,8 @@ module.exports.upvote = (videoId, callback) => {
 };
 
 module.exports.downvote = (videoId, callback) => {
-  pool.query(`INSERT INTO videos (id, downvotes) VALUES (${videoId}, 1) 
-    ON CONFLICT (id) DO UPDATE SET downvotes = customers.downvotes + 1;`)
+  pool.query(`INSERT INTO videos (id, downvotes) VALUES ('${videoId}', 1) 
+    ON CONFLICT (id) DO UPDATE SET downvotes = videos.downvotes + 1;`)
     .then(() => {
       callback(null);
     })
@@ -36,8 +36,8 @@ module.exports.downvote = (videoId, callback) => {
 };
 
 module.exports.report = (videoId, callback) => {
-  pool.query(`INSERT INTO videos (id, reports) VALUES (${videoId}, 1) 
-    ON CONFLICT (id) DO UPDATE SET reports = customers.reports + 1;`)
+  pool.query(`INSERT INTO videos (id, reports) VALUES ('${videoId}', 1) 
+    ON CONFLICT (id) DO UPDATE SET reports = videos.reports + 1;`)
     .then(() => {
       callback(null);
     })

@@ -12,12 +12,18 @@ class App extends React.Component {
 
     this.state = {
       tab: 'Home',
-      video: null,
-      // video: 'Nwzgfgw6zf4',
+      // video: null,
+      video: 'Nwzgfgw6zf4',
+      upvoted: false,
+      downvoted: false,
+      reported: false,
     }
 
     this.handleMenuBarClick = this.handleMenuBarClick.bind(this);
     this.handleBrainMeClick = this.handleBrainMeClick.bind(this);
+    this.handleUpvoteClick = this.handleUpvoteClick.bind(this);
+    this.handleDownvoteClick = this.handleDownvoteClick.bind(this);
+    this.handleReportClick = this.handleReportClick.bind(this);
   }
 
   handleMenuBarClick(event) {
@@ -42,13 +48,71 @@ class App extends React.Component {
     });
   }
 
+  handleUpvoteClick() {
+    const { video } = this.state;
+    // Store & upvote video
+    $.ajax({
+      type: 'PATCH',
+      url: '/api/upvote',
+      data: { video },
+      success: (response) => {
+        this.setState({
+          upvoted: true,
+        });
+      },
+      error: (err) => {
+        console.log(err);
+      }
+    });
+  }
+
+  handleDownvoteClick() {
+    const { video } = this.state;
+    // Store & downvote video
+    $.ajax({
+      type: 'PATCH',
+      url: '/api/downvote',
+      data: { video },
+      success: (response) => {
+        this.setState({
+          downvoted: true,
+        });
+      },
+      error: (err) => {
+        console.log(err);
+      }
+    });
+  }
+  
+  handleReportClick() {
+    const { video } = this.state;
+    // Store & report video
+    $.ajax({
+      type: 'PATCH',
+      url: '/api/report',
+      data: { video },
+      success: (response) => {
+        this.setState({
+          reported: true,
+        });
+      },
+      error: (err) => {
+        console.log(err);
+      }
+    });
+  }
+
   render() {
     const { tab, video } = this.state;
 
     // Set the body varilable to whichever tab is selected to render.
     let body = null;
     if (tab === 'Home' || tab === "15 Minutes of Brain") {
-      body = <Home video={video} handleBrainMeClick={this.handleBrainMeClick} />;
+      body = <Home video={video} 
+        handleBrainMeClick={this.handleBrainMeClick} 
+        handleUpvoteClick={this.handleUpvoteClick}
+        handleDownvoteClick={this.handleDownvoteClick}
+        handleReportClick={this.handleReportClick} />;
     } else if (tab === 'About') {
       body = <About />;
     }

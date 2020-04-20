@@ -109,6 +109,14 @@ iframe {
 }
 
 /*
+ * FontAwesome icons
+ */
+
+i {
+  cursor: pointer;
+}
+
+/*
  * Footer
  */
 .mastfoot {

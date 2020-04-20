@@ -3,6 +3,7 @@ const cors = require('cors');
 const jsdom = require('jsdom');
 const $ = require('jquery')(new jsdom.JSDOM().window);
 const keys = require('../secret.keys.js');
+const db = require('../database/database.js');
 
 const app = express();
 const PORT = 3000;
@@ -67,6 +68,37 @@ app.get('/api/video', (req, res) => {
 
 // TODO: Route to add upvote or downvote
 // app.post
+
+app.patch('/api/upvote', (req, res) => {
+  db.upvote(req.body.video, (err) => {
+    if (err) {
+      console.log(err)
+      res.sendStatus(500);
+    } else {
+      res.sendStatus(201);
+    }
+  });
+});
+
+app.patch('/api/downvote', (req, res) => {
+  db.downvote(req.body.video, (err) => {
+    if (err) {
+      res.sendStatus(500);
+    } else {
+      res.sendStatus(201);
+    }
+  });
+});
+
+app.patch('/api/report', (req, res) => {
+  db.report(req.body.video, (err) => {
+    if (err) {
+      res.sendStatus(500);
+    } else {
+      res.sendStatus(201);
+    }
+  });
+});
 
 
 app.listen(PORT, () => {
