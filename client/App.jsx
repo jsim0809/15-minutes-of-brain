@@ -4,7 +4,6 @@ import Home from './Home.jsx';
 import About from './About.jsx';
 import Footer from './Footer.jsx';
 
-const youtube = require('../youtube.key.js');
 const $ = require('jquery');
 
 class App extends React.Component {
@@ -14,7 +13,7 @@ class App extends React.Component {
     this.state = {
       tab: 'Home',
       video: null,
-      showThumbs: false,
+      // video: 'Nwzgfgw6zf4',
     }
 
     this.handleMenuBarClick = this.handleMenuBarClick.bind(this);
@@ -28,44 +27,13 @@ class App extends React.Component {
   }
 
   handleBrainMeClick() {
-    // Fetch 50 'Education' videos
+    // Fetch random video
     $.ajax({
       type: 'GET',
-      url: 'https://www.googleapis.com/youtube/v3/search',
-      data: {
-        key: youtube.API_KEY,
-        part: 'snippet',
-        maxResults: 50,
-        type: 'video',
-        videoEmbeddable: true,
-        videoCategoryId: '27',
-        videoDuration: 'medium',
-        relevanceLanguage: 'en',
-      },
-      success: (response1) => {
-        // Fetch 500 'Science and Technology' videos
-        $.ajax({
-          type: 'GET',
-          url: 'https://www.googleapis.com/youtube/v3/search',
-          data: {
-            key: youtube.API_KEY,
-            part: 'snippet',
-            maxResults: 50,
-            type: 'video',
-            videoEmbeddable: true,
-            videoCategoryId: '28',
-            videoDuration: 'medium',
-            relevanceLanguage: 'en',
-          },
-          success: (response2) => {
-            const videoList = response1.items.concat(response2.items);
-            this.setState({
-              video: videoList[Math.floor(Math.random()*100)].id.videoId,
-            });
-          },
-          error: (err) => {
-            console.log(err);
-          }
+      url: '/api/video',
+      success: (response) => {
+        this.setState({
+          video: response,
         });
       },
       error: (err) => {
@@ -75,19 +43,19 @@ class App extends React.Component {
   }
 
   render() {
-    const { tab, video, showThumbs } = this.state;
+    const { tab, video } = this.state;
 
     // Set the body varilable to whichever tab is selected to render.
     let body = null;
     if (tab === 'Home' || tab === "15 Minutes of Brain") {
-      body = <Home video={video} showThumbs={showThumbs} handleBrainMeClick={this.handleBrainMeClick} />;
+      body = <Home video={video} handleBrainMeClick={this.handleBrainMeClick} />;
     } else if (tab === 'About') {
       body = <About />;
     }
 
     return (
       <div className="cover-container d-flex w-100 h-100 p-3 mx-auto flex-column">
-        <Header tab={tab} handleMenuBarClick={this.handleMenuBarClick} />
+        <Header tab={tab} video={video} handleMenuBarClick={this.handleMenuBarClick} />
         {body}
         <Footer />
       </div>

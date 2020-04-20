@@ -1,6 +1,9 @@
 import React from 'react';
+import VoteBar from './VoteBar.jsx';
 
-const Home = ({ video, showThumbs, handleBrainMeClick }) => (
+// Parent: App
+// Children: VoteBar
+const Home = ({ video, handleBrainMeClick }) => (
   <main role="main" className="inner cover">
     <h1 className="cover-heading">Ready to learn?</h1>
     {/* <p class="lead">It's big brain time.</p> */}
@@ -9,7 +12,7 @@ const Home = ({ video, showThumbs, handleBrainMeClick }) => (
     </p>
     {video ? <iframe width="100%" height="100%" src={`https://www.youtube.com/embed/${video}?rel=0`} frameborder="0" 
       allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen="true"></iframe> : null}
-    {showThumbs ? <div>Thumbs display here</div> : null}
+    {video ? <VoteBar /> : null}
   </main>
 );
 

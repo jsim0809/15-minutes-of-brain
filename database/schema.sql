@@ -6,10 +6,10 @@ CREATE TABLE videos(
   PRIMARY KEY (id)
 );
 
-CREATE TABLE learners(
-  id          text        NOT NULL,
-  upvoted     text[],
-  downvoted   text[],
-  reported    text[],
-  PRIMARY KEY (id)
-);
+-- CREATE TABLE learners(
+--   id          text        NOT NULL,
+--   upvoted     text[],
+--   downvoted   text[],
+--   reported    text[],
+--   PRIMARY KEY (id)
+-- );

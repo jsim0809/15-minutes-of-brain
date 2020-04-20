@@ -101,6 +101,14 @@ body {
 }
 
 /*
+ * Iframe
+ */
+
+iframe {
+  margin-bottom: 16px;
+}
+
+/*
  * Footer
  */
 .mastfoot {
