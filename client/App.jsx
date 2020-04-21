@@ -23,11 +23,12 @@ class App extends React.Component {
     this.handleUpvoteClick = this.handleUpvoteClick.bind(this);
     this.handleDownvoteClick = this.handleDownvoteClick.bind(this);
     this.handleReportClick = this.handleReportClick.bind(this);
+    this.handleBirthdayClick = this.handleBirthdayClick.bind(this);
   }
   
   handleMenuBarClick(event) {
     this.setState({
-      tab: event.target.innerHTML
+      tab: event.target.innerHTML,
     })
   }
   
@@ -109,6 +110,13 @@ class App extends React.Component {
     });
   }
 
+  handleBirthdayClick(){
+    this.setState({
+      tab: 'Home',
+      video: 'Yxm9PUA4_do',
+    })
+  }
+
   render() {
     const { tab, video, upvoted, downvoted, reported } = this.state;
 
@@ -125,7 +133,7 @@ class App extends React.Component {
         handleReportClick={this.handleReportClick}
       />;
     } else if (tab === 'About') {
-      body = <About />;
+      body = <About handleBirthdayClick={this.handleBirthdayClick} />;
     }
 
     return (

@@ -35,7 +35,7 @@ app.get('/api/video', (req, res) => {
         type: 'GET',
         url: 'https://www.googleapis.com/youtube/v3/search',
         data: {
-          // key: keys.YOUTUBE_API_KEY,
+          key: keys.YOUTUBE_API_KEY,
           part: 'snippet',
           maxResults: 50,
           type: 'video',
@@ -53,7 +53,7 @@ app.get('/api/video', (req, res) => {
             type: 'GET',
             url: 'https://www.googleapis.com/youtube/v3/search',
             data: {
-              // key: keys.YOUTUBE_API_KEY,
+              key: keys.YOUTUBE_API_KEY,
               part: 'snippet',
               maxResults: 50,
               type: 'video',
