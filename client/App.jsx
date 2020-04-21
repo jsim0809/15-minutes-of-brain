@@ -33,26 +33,26 @@ class App extends React.Component {
   
   handleBrainMeClick() {
     // Test video
-    // this.setState({
-    //   video: 'Nwzgfgw6zf4',
-    // });
-
-    // Fetch random video
-    $.ajax({
-      type: 'GET',
-      url: '/api/video',
-      success: (response) => {
-        this.setState({
-          video: response,
-          upvoted: false,
-          downvoted: false,
-          reported: false,
-        });
-      },
-      error: (err) => {
-        console.log(err);
-      }
+    this.setState({
+      video: 'Nwzgfgw6zf4',
     });
+
+    // // Fetch random video
+    // $.ajax({
+    //   type: 'GET',
+    //   url: '/api/video',
+    //   success: (response) => {
+    //     this.setState({
+    //       video: response,
+    //       upvoted: false,
+    //       downvoted: false,
+    //       reported: false,
+    //     });
+    //   },
+    //   error: (err) => {
+    //     console.log(err);
+    //   }
+    // });
   }
 
   handleUpvoteClick() {
@@ -114,7 +114,7 @@ class App extends React.Component {
 
     // Set the body varilable to whichever tab is selected to render.
     let body = null;
-    if (tab === 'Home' || tab === "15 Minutes of Brain") {
+    if (tab === 'Home' || tab === "Brain15") {
       body = <Home video={video}
         upvoted={upvoted}
         downvoted={downvoted}

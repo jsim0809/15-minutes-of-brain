@@ -116,5 +116,5 @@ app.patch('/api/report', (req, res) => {
 
 
 app.listen(PORT, () => {
-  console.log(`15 Minutes of Brain: listening on port ${PORT}.`);
+  console.log(`Brain15 is listening on port ${PORT}.`);
 });
