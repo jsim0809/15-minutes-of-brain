@@ -1,7 +1,7 @@
 import React from 'react';
 
 const Header = ({ tab, video, handleMenuBarClick }) => (
-  <header className={`masthead mb-${video ? '5' : 'auto'}`}>
+  <header className={`masthead mb-${(!video || tab === 'About') ? 'auto' : '5'}`}>
       <div className="inner">
         <h3 className="masthead-brand" onClick={handleMenuBarClick}>15 Minutes of Brain</h3>
         <nav className="nav nav-masthead justify-content-center">
