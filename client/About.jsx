@@ -4,7 +4,7 @@ const About = ({ handleBirthdayClick }) => (
   <span>
 
     <h5 className="text-left">What's this site about?</h5>
-    <p className="text-left">Studies show that <a href="https://en.wikipedia.org/wiki/Decision_fatigue"><u>decision fatigue</u></a> is 
+    <p className="text-left">Studies show that <a href="https://en.wikipedia.org/wiki/Decision_fatigue" target="_blank"><u>decision fatigue</u></a> is 
             a constant factor in our lives today, particularly in the evenings when we're deciding what to do with our free time. 
             This leads to a lot of wasted hours — we're literally too tired to know what to do.</p>
     <p className="text-left"><span className="font-weight-bolder">Brain15</span> is designed to fill those gaps with growth and learning. 
