@@ -17,68 +17,77 @@ app.use(express.static(__dirname + '/../public'));
 
 // Fetches list of 100 from Youtube and selects one at random
 app.get('/api/video', (req, res) => {
-  //  Fetch 500 'Education' videos
-  $.ajax({
-    type: 'GET',
-    url: 'https://www.googleapis.com/youtube/v3/search',
-    data: {
-      key: keys.YOUTUBE_API_KEY,
-      part: 'snippet',
-      maxResults: 50,
-      type: 'video',
-      videoEmbeddable: true,
-      videoCategoryId: '27',
-      videoDuration: 'medium',
-      relevanceLanguage: 'en',
-      order: 'rating',
-    },
-    success: (response1) => {
-      // Fetch 500 'Science and Technology' videos
+  db.getAllVideos((err, dbResponse) => {
+    if (err) {
+      console.log('Database query error: ', err);
+      res.sendStatus(500);
+    } else {
+      const videoList = [];
+      dbResponse.rows.forEach((video) => {
+        if ((video.reports / (video.upvotes + video.downvotes + 1)) < 0.05) {
+          for (let i = 0; i < (video.upvotes - video.downvotes); i++) {
+            videoList.push(video.id)
+          }
+        }
+      });
+      //  Fetch 500 'Education' videos
       $.ajax({
         type: 'GET',
         url: 'https://www.googleapis.com/youtube/v3/search',
         data: {
-          key: keys.YOUTUBE_API_KEY,
+          // key: keys.YOUTUBE_API_KEY,
           part: 'snippet',
           maxResults: 50,
           type: 'video',
           videoEmbeddable: true,
-          videoCategoryId: '28',
+          videoCategoryId: '27',
           videoDuration: 'medium',
           relevanceLanguage: 'en',
-          order: 'rating',
         },
-        success: (response2) => {
-          db.getAllVideos((err, dbResponse) => {
-            if (err) {
-              console.log('Database query error: ', err);
-              res.sendStatus(500);
-            } else {
-              const videoList = response1.items.concat(response2.items).map((video) => video.id.videoId);
-              dbResponse.rows.forEach((video) => {
-                if ((video.reports / (video.upvotes + video.downvotes + 1)) < 0.05) {
-                  for (let i = 0; i < (video.upvotes - video.downvotes); i++) {
-                    videoList.push(video.id)
-                  }
-                }
+        success: (response1) => {
+          // Fetch 500 'Science and Technology' videos
+          response1.items.forEach((video) => {
+            videoList.push(video.id.videoId);
+          });
+          $.ajax({
+            type: 'GET',
+            url: 'https://www.googleapis.com/youtube/v3/search',
+            data: {
+              // key: keys.YOUTUBE_API_KEY,
+              part: 'snippet',
+              maxResults: 50,
+              type: 'video',
+              videoEmbeddable: true,
+              videoCategoryId: '28',
+              videoDuration: 'medium',
+              relevanceLanguage: 'en',
+            },
+            success: (response2) => {
+              response2.items.forEach((video) => {
+                videoList.push(video.id.videoId);
               });
-              const video = videoList[Math.floor(Math.random() * videoList.length)]
+              console.log('videoList: ', videoList);
+              const video = videoList[Math.floor(Math.random() * videoList.length)];
+              res.send(video);
+            },
+            error: (err) => {
+              console.log("Couldn't load Science & Technology videos: ", err);
+              console.log('videoList: ', videoList);
+              const video = videoList[Math.floor(Math.random() * videoList.length)];
               res.send(video);
             }
           });
         },
         error: (err) => {
-          console.log('Youtube API request error: ', err);
-          res.sendStatus(500);
+          console.log("Couldn't load Education videos: ", err);
+          console.log('videoList: ', videoList);
+          const video = videoList[Math.floor(Math.random() * videoList.length)];
+          res.send(video);
         }
       });
-    },
-    error: (err) => {
-      console.log('Youtube API request error: ', err);
-      res.sendStatus(500);
     }
   });
-})
+});
 
 // TODO: Route to add upvote or downvote
 // app.post
