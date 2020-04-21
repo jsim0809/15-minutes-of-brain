@@ -32,27 +32,27 @@ class App extends React.Component {
   }
   
   handleBrainMeClick() {
-    // Test video
-    this.setState({
-      video: 'Nwzgfgw6zf4',
-    });
-
-    // // Fetch random video
-    // $.ajax({
-    //   type: 'GET',
-    //   url: '/api/video',
-    //   success: (response) => {
-    //     this.setState({
-    //       video: response,
-    //       upvoted: false,
-    //       downvoted: false,
-    //       reported: false,
-    //     });
-    //   },
-    //   error: (err) => {
-    //     console.log(err);
-    //   }
+    // // Test video
+    // this.setState({
+    //   video: 'Nwzgfgw6zf4',
     // });
+
+    // Fetch random video
+    $.ajax({
+      type: 'GET',
+      url: '/api/video',
+      success: (response) => {
+        this.setState({
+          video: response,
+          upvoted: false,
+          downvoted: false,
+          reported: false,
+        });
+      },
+      error: (err) => {
+        console.log(err);
+      }
+    });
   }
 
   handleUpvoteClick() {
