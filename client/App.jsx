@@ -40,6 +40,9 @@ class App extends React.Component {
       success: (response) => {
         this.setState({
           video: response,
+          upvoted: false,
+          downvoted: false,
+          reported: false,
         });
       },
       error: (err) => {
@@ -83,7 +86,7 @@ class App extends React.Component {
       }
     });
   }
-  
+
   handleReportClick() {
     const { video } = this.state;
     // Store & report video
@@ -103,16 +106,20 @@ class App extends React.Component {
   }
 
   render() {
-    const { tab, video } = this.state;
+    const { tab, video, upvoted, downvoted, reported } = this.state;
 
     // Set the body varilable to whichever tab is selected to render.
     let body = null;
     if (tab === 'Home' || tab === "15 Minutes of Brain") {
-      body = <Home video={video} 
-        handleBrainMeClick={this.handleBrainMeClick} 
+      body = <Home video={video}
+        upvoted={upvoted}
+        downvoted={downvoted}
+        reported={reported}
+        handleBrainMeClick={this.handleBrainMeClick}
         handleUpvoteClick={this.handleUpvoteClick}
         handleDownvoteClick={this.handleDownvoteClick}
-        handleReportClick={this.handleReportClick} />;
+        handleReportClick={this.handleReportClick}
+      />;
     } else if (tab === 'About') {
       body = <About />;
     }

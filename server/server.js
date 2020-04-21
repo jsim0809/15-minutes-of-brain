@@ -1,4 +1,4 @@
-const express = require ('express');
+const express = require('express');
 const cors = require('cors');
 const jsdom = require('jsdom');
 const $ = require('jquery')(new jsdom.JSDOM().window);
@@ -49,9 +49,23 @@ app.get('/api/video', (req, res) => {
           order: 'rating',
         },
         success: (response2) => {
-          const videoList = response1.items.concat(response2.items);
-          const video = videoList[Math.floor(Math.random() * videoList.length)].id.videoId
-          res.send(video);
+          db.getAllVideos((err, dbResponse) => {
+            if (err) {
+              console.log('Database query error: ', err);
+              res.sendStatus(500);
+            } else {
+              const videoList = response1.items.concat(response2.items).map((video) => video.id.videoId);
+              dbResponse.rows.forEach((video) => {
+                if ((video.reports / (video.upvotes + video.downvotes + 1)) < 0.05) {
+                  for (let i = 0; i < (video.upvotes - video.downvotes); i++) {
+                    videoList.push(video.id)
+                  }
+                }
+              });
+              const video = videoList[Math.floor(Math.random() * videoList.length)]
+              res.send(video);
+            }
+          });
         },
         error: (err) => {
           console.log('Youtube API request error: ', err);

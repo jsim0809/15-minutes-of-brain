@@ -12,6 +12,16 @@ const pool = new Pool({
 
 pool.connect()
 
+module.exports.getAllVideos = (callback) => {
+  pool.query(`SELECT * FROM videos;`)
+    .then((result) => {
+      callback(null, result);
+    })
+    .catch((err) => {
+      callback(err);
+    });
+};
+
 // Upvote, downvote, or report
 module.exports.upvote = (videoId, callback) => {
   pool.query(`INSERT INTO videos (id, upvotes) VALUES ('${videoId}', 1) 

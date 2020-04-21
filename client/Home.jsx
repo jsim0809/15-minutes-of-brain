@@ -5,6 +5,9 @@ import VoteBar from './VoteBar.jsx';
 // Children: VoteBar
 const Home = ({
   video,
+  upvoted,
+  downvoted,
+  reported,
   handleBrainMeClick,
   handleUpvoteClick,
   handleDownvoteClick,
@@ -19,6 +22,9 @@ const Home = ({
       {video ? <iframe className="my-4" width="100%" height="100%" src={`https://www.youtube.com/embed/${video}?rel=0`} frameborder="0"
         allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen="true"></iframe> : null}
       {video ? <VoteBar
+        upvoted={upvoted}
+        downvoted={downvoted}
+        reported={reported}
         handleUpvoteClick={handleUpvoteClick}
         handleDownvoteClick={handleDownvoteClick}
         handleReportClick={handleReportClick}
